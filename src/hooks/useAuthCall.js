@@ -31,19 +31,17 @@ import {
 } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import useAxios from "./useAxios";
 
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { axiosPublic } = useAxios();
   const login = async (userData) => {
     // const BASE_URL = "http://14108.fullstack.clarusway.com";
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/account/auth/login/`,
-        userData
-      );
+      const { data } = await axiosPublic.post("/account/auth/login/", userData);
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login successfull.");
       navigate("/stock");
@@ -59,9 +57,7 @@ const useAuthCall = () => {
     // const BASE_URL = "http://14108.fullstack.clarusway.com";
     dispatch(fetchStart());
     try {
-      const { message } = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/account/auth/logout/`
-      );
+      const { message } = await axiosPublic.post("/account/auth/logout/");
       dispatch(logoutSuccess());
       toastSuccessNotify(message);
       navigate("/");
@@ -75,10 +71,7 @@ const useAuthCall = () => {
   const register = async (userData) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/account/register/`,
-        userData
-      );
+      const { data } = await axiosPublic.post("/account/register/", userData);
       dispatch(registerSuccess(data));
       toastSuccessNotify("register başarili");
       navigate("/stock");

@@ -4,7 +4,7 @@ import stockReducer from "../features/stockSlice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    srock: stockReducer,
+    stock: stockReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

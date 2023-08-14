@@ -1,21 +1,22 @@
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getFirmsSucces } from "../features/stockSlice";
+import useAxios from "./useAxios";
 
 const useStockCall = () => {
-  const { token } = useSelector((state) => state.auth);
-  const getFirms = async () => {
+  const { axiosWithToken } = useAxios();
+  const dispatch = useDispatch();
+  //   const { token } = useSelector((state) => state.auth);
+  const getStockData = async (url) => {
     try {
-      const { data } = await axios(
-        `${import.meta.env.VITE_BASE_URL}/stock/firms`,
-        { headers: { Authorization: `Token ${token}` } }
-      );
+      const { data } = await axiosWithToken(`/stock/${url}/`);
+      dispatch(getFirmsSucces({ url, data }));
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { getFirms };
+  return { getStockData };
 };
 
 export default useStockCall;
