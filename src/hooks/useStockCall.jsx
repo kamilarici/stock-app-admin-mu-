@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { getFirmsSucces } from "../features/stockSlice";
+import { getStockSuccess } from "../features/stockSlice";
 import useAxios from "./useAxios";
 
 const useStockCall = () => {
@@ -9,14 +9,22 @@ const useStockCall = () => {
   const getStockData = async (url) => {
     try {
       const { data } = await axiosWithToken(`/stock/${url}/`);
-      dispatch(getFirmsSucces({ url, data }));
+      dispatch(getStockSuccess({ url, data }));
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
+  const deleteStockData = async (url, id) => {
+    try {
+      await axiosWithToken.delete(`/stock/${url}/${id}/`);
+      getStockData(url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  return { getStockData };
+  return { getStockData, deleteStockData };
 };
 
 export default useStockCall;

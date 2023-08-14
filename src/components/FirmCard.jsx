@@ -6,8 +6,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+import { btnStyle } from "../styles/globalStyles";
+import useStockCall from "../hooks/useStockCall";
 export default function FrimCard({ firm }) {
-  const { address, image, name, phone } = firm;
+  const { deleteStockData } = useStockCall();
+  const { address, image, name, phone, id } = firm;
   return (
     <Card
       sx={{
@@ -38,8 +41,11 @@ export default function FrimCard({ firm }) {
         {phone}
       </Typography>
       <CardActions>
-        <EditIcon />
-        <DeleteOutlineIcon />
+        <EditIcon sx={btnStyle} />
+        <DeleteOutlineIcon
+          sx={btnStyle}
+          onClick={() => deleteStockData("firms", id)}
+        />
       </CardActions>
     </Card>
   );
