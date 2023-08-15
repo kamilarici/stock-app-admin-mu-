@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-export default function FirmModal({ open, setOpen, fakeFirm }) {
+export default function BrandsModal({ open, setOpen, fakeBrand }) {
 
     const { createStockData, updateStockData } = useStockCall()
 
@@ -45,11 +45,11 @@ export default function FirmModal({ open, setOpen, fakeFirm }) {
                     <Box sx={style}>
 
                         <Formik
-                            initialValues={fakeFirm.name ? fakeFirm : { name: "", phone: "", image: "", address: "" }}
+                            initialValues={fakeBrand.name ? fakeBrand : { name: "", image: "" }}
 
                             onSubmit={(values) => {
 
-                                ("id" in fakeFirm) ? updateStockData('firms', fakeFirm.id, values) : createStockData('firms', values)
+                                ("id" in fakeBrand) ? updateStockData('brands', fakeBrand.id, values) : createStockData('brands', values)
 
                                 handleClose()
 
@@ -58,7 +58,7 @@ export default function FirmModal({ open, setOpen, fakeFirm }) {
                             {
                                 ({ handleChange, handleBlur, values }) => (
                                     <Form>
-                                        <Typography variant={"h6"} color={"error"} mb={2}>  {("id" in fakeFirm) ? "Update the Frim" : "Add New Frim"}  </Typography>
+                                        <Typography variant={"h6"} color={"error"} mb={2}>  {("id" in fakeBrand) ? "Update the Brand" : "Add New Brand"}  </Typography>
                                         <Box
                                             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
                                         >
@@ -73,28 +73,8 @@ export default function FirmModal({ open, setOpen, fakeFirm }) {
                                                 value={values.name}
                                                 required
                                             />
-                                            <TextField
-                                                label="Phone"
-                                                name="phone"
-                                                id="phone"
-                                                type="tel"
-                                                variant="outlined"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.phone}
-                                                required
-                                            />
-                                            <TextField
-                                                label="Address"
-                                                name="address"
-                                                id="address"
-                                                type="address"
-                                                variant="outlined"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.address}
-                                                required
-                                            />
+                                         
+
                                             <TextField
                                                 label="Image"
                                                 name="image"
