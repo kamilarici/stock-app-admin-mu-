@@ -39,7 +39,6 @@ const authSlice = createSlice({
   },
   
 });
-
 export const {
   fetchStart,
   loginSuccess,

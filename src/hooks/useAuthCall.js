@@ -1,26 +1,4 @@
-/* import { useDispatch } from "react-redux";
-import { fetchStart } from "../features/authSlice";
-import axios from "axios";
 
-export const login = async(userData) => {
-
-    const dispatch = useDispatch()
-    const BASE_URL = "http://11510.fullstack.clarusway.com";
-
-
-dispatch(fetchStart())
-try {
-    const{ data} = await axios.post(`${BASE_URL}/account/auth/login/`, userData )
-    console.log(data);
-} catch (error) {
-    console.log(error);
-}
-
-};
-
- */
-
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   fetchFail,
@@ -34,14 +12,17 @@ import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import useAxios from "./useAxios";
 
 const useAuthCall = () => {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { axiosPublic } = useAxios();
+
+  const {axiosPublic} = useAxios()
+
+
   const login = async (userData) => {
-    // const BASE_URL = "http://14108.fullstack.clarusway.com";
     dispatch(fetchStart());
     try {
-      const { data } = await axiosPublic.post("/account/auth/login/", userData);
+      const { data } = await axiosPublic.post('/account/auth/login/',userData)
       dispatch(loginSuccess(data));
       toastSuccessNotify("Login successfull.");
       navigate("/stock");
@@ -54,10 +35,9 @@ const useAuthCall = () => {
   };
 
   const logout = async () => {
-    // const BASE_URL = "http://14108.fullstack.clarusway.com";
     dispatch(fetchStart());
     try {
-      const { message } = await axiosPublic.post("/account/auth/logout/");
+      const { message } = await axiosPublic.post('/account/auth/logout/');
       dispatch(logoutSuccess());
       toastSuccessNotify(message);
       navigate("/");
@@ -68,19 +48,19 @@ const useAuthCall = () => {
       dispatch(fetchFail());
     }
   };
+
   const register = async (userData) => {
+
     dispatch(fetchStart());
     try {
-      const { data } = await axiosPublic.post("/account/register/", userData);
+      const { data } = await axiosPublic.post('/account/register/',userData)
       dispatch(registerSuccess(data));
-      toastSuccessNotify("register başarili");
+      toastSuccessNotify("register islemi basarili");
       navigate("/stock");
     } catch (error) {
-      console.log(error);
       dispatch(fetchFail());
-      toastErrorNotify(
-        error?.response?.data?.non_field_errors[0] || error?.message
-      );
+      toastErrorNotify(error?.message);
+      console.log(error);
     }
   };
 

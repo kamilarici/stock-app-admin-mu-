@@ -1,18 +1,19 @@
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/result.svg";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
-import { Formik } from "formik";
-import RegisterForm, { registerSchema } from "../components/RegisterForm";
-import useAuthCall from "../hooks/useAuthCall";
+import Container from "@mui/material/Container"
+import Typography from "@mui/material/Typography"
+import Avatar from "@mui/material/Avatar"
+import LockIcon from "@mui/icons-material/Lock"
+import image from "../assets/result.svg"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import { Link } from "react-router-dom"
+import { Formik } from "formik"
+import RegisterForm, { registerSchema } from "../components/RegisterForm"
+import useAuthCall from "../hooks/useAuthCall"
 
 const Register = () => {
   // const navigate = useNavigate()
-  const { register } = useAuthCall();
+  const { register } = useAuthCall()
+
   return (
     <Container maxWidth="lg">
       <Grid
@@ -52,21 +53,25 @@ const Register = () => {
           </Typography>
 
           <Formik
-            initialValues={{
-              username: "",
-              first_name: "",
-              last_name: "",
-              email: "",
-              password: "",
-            }}
+            initialValues={
+              {
+                username: "",
+                first_name: "",
+                last_name: "",
+                email: "",
+                password: ""
+              }
+            }
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
-              register({ ...values, password2: values.password });
-              actions.resetForm();
-              actions.setSubmitting();
+              register({...values , password2: values.password })
+              actions.resetForm()
+              actions.setSubmitting()
             }}
-            component={(props) => <RegisterForm {...props} />}
-          ></Formik>
+
+            component={(props) => <RegisterForm  {...props} />}
+          >
+          </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/">Do you have an account?</Link>
@@ -80,7 +85,7 @@ const Register = () => {
         </Grid>
       </Grid>
     </Container>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register
