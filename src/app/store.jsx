@@ -9,6 +9,7 @@ const persistConfig = {
   key: "root",
   storage,
 };
+//? auth reducer store içine yazıldı
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
 const store = configureStore({
