@@ -104,7 +104,7 @@ export default function LoginNew() {
               }}
             >
               {({ handleChange, handleBlur, values, touched, errors }) => (
-                <form style={{ width: "80%" }}>
+                <Form style={{ width: "80%" }}>
                   <Box
                     sx={{
                       display: "flex",
@@ -155,7 +155,7 @@ export default function LoginNew() {
                     </Grid>
                     <Copyright sx={{ mt: 5 }} />
                   </Box>
-                </form>
+                </Form>
               )}
             </Formik>
           </Box>
