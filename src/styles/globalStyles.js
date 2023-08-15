@@ -1,3 +1,5 @@
 export const btnStyle = {
-    '&:hover':{color:"red", cursor:"pointer"}
-}
+  fontSize: "35px",
+  marginRight: "15px",
+  "&:hover": { color: "red", cursor: "pointer" },
+};
