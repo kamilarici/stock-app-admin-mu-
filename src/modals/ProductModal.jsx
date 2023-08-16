@@ -20,8 +20,8 @@ const style = {
   p: 4,
 };
 
-export default function BrandsModal({ open, setOpen, fakeBrand }) {
-  const { createStockData, updateStockData } = useStockCall();
+export default function ProductModal({ open, setOpen }) {
+  //   const { createStockData } = useStockCall();
 
   const handleClose = () => setOpen(false);
 
@@ -43,32 +43,21 @@ export default function BrandsModal({ open, setOpen, fakeBrand }) {
         <Fade in={open}>
           <Box sx={style}>
             <Formik
-              initialValues={
-                fakeBrand.name ? fakeBrand : { name: "", image: "" }
-              }
+              initialValues={{ categories: "", brands: "", productName: "" }}
               onSubmit={(values) => {
-                "id" in fakeBrand
-                  ? updateStockData("brands", fakeBrand.id, values)
-                  : createStockData("brands", values);
-
+                // createStockData("products", values);
                 handleClose();
               }}
             >
               {({ handleChange, handleBlur, values }) => (
                 <Form>
-                  <Typography variant={"h6"} color={"error"} mb={2}>
-                    {" "}
-                    {"id" in fakeBrand
-                      ? "Update the Brand"
-                      : "Add New Brand"}{" "}
-                  </Typography>
                   <Box
                     sx={{ display: "flex", flexDirection: "column", gap: 2 }}
                   >
                     <TextField
-                      label="Name"
-                      name="name"
-                      id="name"
+                      label="Categories"
+                      name="categories"
+                      id="categories"
                       type="text"
                       variant="outlined"
                       onChange={handleChange}
@@ -78,10 +67,20 @@ export default function BrandsModal({ open, setOpen, fakeBrand }) {
                     />
 
                     <TextField
-                      label="Image"
-                      name="image"
-                      id="image"
-                      type="url"
+                      label="Brands"
+                      name="brands"
+                      id="brands"
+                      type="text"
+                      variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.image}
+                    />
+                    <TextField
+                      label="ProductName"
+                      name="productName"
+                      id="productName"
+                      type="text"
                       variant="outlined"
                       onChange={handleChange}
                       onBlur={handleBlur}
