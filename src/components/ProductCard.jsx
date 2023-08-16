@@ -6,35 +6,33 @@ import {
   useGridApiRef,
   useKeepGroupedColumnsHidden,
 } from "@mui/x-data-grid-premium";
-import { useDemoData } from "@mui/x-data-grid-generator";
+import { useSelector } from "react-redux";
+// import { useDemoData } from "@mui/x-data-grid-generator";
 
 export default function ProductCard() {
-  const { data, loading } = useDemoData({
-    dataSet: "Commodity",
-    rowLength: 100,
-    editable: true,
-    visibleFields: [
-      "commodity",
-      "quantity",
-      "filledQuantity",
-      "status",
-      "isFilled",
-      "unitPrice",
-      "unitPriceCurrency",
-      "subTotal",
-      "feeRate",
-      "feeAmount",
-      "incoTerm",
-    ],
-  });
+  const { products } = useSelector((state) => state.stock);
+  //   const { data, loading } = useDemoData({
+  //     dataSet: "Commodity",
+  //     rowLength: 100,
+  //     editable: true,
+  //     visibleFields: [
+  //       "#",
+  //       "Category",
+  //       "Brand",
+  //       "Name",
+  //       "Stock",
+  //       "Actions",
+
+  //     ],
+  //   });
   const apiRef = useGridApiRef();
 
   const initialState = useKeepGroupedColumnsHidden({
     apiRef,
     initialState: {
-      ...data.initialState,
+      ...products.initialState,
       rowGrouping: {
-        ...data.initialState?.rowGrouping,
+        ...products.initialState?.rowGrouping,
         model: ["commodity"],
       },
       sorting: {
@@ -51,9 +49,9 @@ export default function ProductCard() {
   return (
     <Box sx={{ height: 520, width: "100%" }}>
       <DataGridPremium
-        {...data}
+        {...products}
         apiRef={apiRef}
-        loading={loading}
+        // loading={loading}
         disableRowSelectionOnClick
         initialState={initialState}
         slots={{ toolbar: GridToolbar }}
